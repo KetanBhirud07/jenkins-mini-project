@@ -2,11 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'git@github.com:KetanBhirud07/jenkins-mini-project.git'
-            }
+        
         }
 
         stage('Install Dependencies') {
