@@ -25,7 +25,20 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t jenkins-mini-app .'
+                sh 'docker build -t jenkins-mini-app:latest .'
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                    docker rm -f jenkins-mini-container || true
+                    docker run -d \
+                        --name jenkins-mini-container \
+                        --restart unless-stopped \
+                        -p 5000:5000 \
+                        jenkins-mini-app:latest
+                '''
             }
         }
     }
