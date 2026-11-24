@@ -4,27 +4,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'git@github.com:KetanBhirud07/jenkins-mini-project.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh '''
-                    python3 -m venv .venv
-                    . .venv/bin/activate
-                    pip install -r requirements.txt
-                    pip install pytest
-                '''
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    . .venv/bin/activate
-                    pytest -v test_app.py
-                '''
+                sh 'python3 -m pytest test_app.py'
             }
         }
 
